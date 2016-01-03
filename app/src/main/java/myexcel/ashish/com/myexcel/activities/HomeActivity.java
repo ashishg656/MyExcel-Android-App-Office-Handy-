@@ -3,18 +3,28 @@ package myexcel.ashish.com.myexcel.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import myexcel.ashish.com.myexcel.R;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 
-public class HomeActivity extends AppCompatActivity {
+import myexcel.ashish.com.myexcel.R;
+import myexcel.ashish.com.myexcel.adapters.HomeActivityListAdapter;
+import myexcel.ashish.com.myexcel.application.ZApplication;
+import myexcel.ashish.com.myexcel.extras.ZUrls;
+import myexcel.ashish.com.myexcel.objects.HomeActivityListObject;
+
+public class HomeActivity extends BaseActivity implements ZUrls {
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
+    HomeActivityListAdapter adapter;
 
     boolean isRequestRunning;
     Integer nextPage = 1;
@@ -62,9 +72,9 @@ public class HomeActivity extends AppCompatActivity {
             showLoadingLayout();
             hideErrorLayout();
         }
-        String url = studentPostsUrl + "?pagenumber=" + nextPage;
-        StringRequest req = new StringRequest(Method.POST, url,
-                new Listener<String>() {
+        String url = getWorksListUrl + "?pagenumber=" + nextPage;
+        StringRequest req = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String res) {
@@ -72,28 +82,34 @@ public class HomeActivity extends AppCompatActivity {
                             hideErrorLayout();
                             hideLoadingLayout();
                         }
-                        PostsListObject obj = new Gson().fromJson(res,
-                                PostsListObject.class);
+                        HomeActivityListObject obj = new Gson().fromJson(res,
+                                HomeActivityListObject.class);
                         setAdapterData(obj);
                     }
-                }, new ErrorListener() {
+                }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError err) {
-                System.out.print(err.networkResponse);
                 if (adapter == null) {
                     showErrorLayout();
                     hideLoadingLayout();
                 }
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> p = new HashMap<>();
-                p.put("user_id", ZPreferences.getUserProfileID(getActivity()));
-                return p;
-            }
-        };
-        ZApplication.getInstance().addToRequestQueue(req, teacherPostsUrl);
+        });
+        ZApplication.getInstance().addToRequestQueue(req, getWorksListUrl);
+    }
+
+    protected void setAdapterData(HomeActivityListObject obj) {
+        nextPage = obj.getNext_page();
+        if (nextPage == null) {
+            isMoreAllowed = false;
+        }
+        if (adapter == null) {
+            adapter = new HomeActivityListAdapter(this,
+                    obj.getWorks(), isMoreAllowed);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.addData(obj.getWorks(), isMoreAllowed);
+        }
     }
 }
