@@ -42,6 +42,6 @@ public class ZApplication extends Application {
     }
 
     public static String getBaseUrl() {
-        return "http://hola-instirepo.rhcloud.com/app/";
+        return "http://hola-instirepo.rhcloud.com/myexcel/";
     }
 }

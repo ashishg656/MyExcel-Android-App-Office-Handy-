@@ -1,8 +1,8 @@
 package myexcel.ashish.com.myexcel.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +28,7 @@ public class HomeActivity extends BaseActivity implements ZUrls {
 
     boolean isRequestRunning;
     Integer nextPage = 1;
+    public static final int REQUESt_CODE_ADD_WORK = 348;
     boolean isMoreAllowed = true;
 
     @Override
@@ -37,15 +38,18 @@ public class HomeActivity extends BaseActivity implements ZUrls {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setProgressLayoutVariablesAndErrorVariables();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(HomeActivity.this, AddWorkActivity.class);
+                startActivityForResult(i, REQUESt_CODE_ADD_WORK);
             }
         });
 
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerhome);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
