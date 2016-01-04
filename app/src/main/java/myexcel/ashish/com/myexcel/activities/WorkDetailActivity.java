@@ -136,7 +136,7 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
         }
         if (adapter == null) {
             adapter = new WorkDetailActivityListAdapter(this,
-                    obj.getWorks(), isMoreAllowed);
+                    obj.getWorks(), isMoreAllowed,homeObject.getId());
             recyclerView.setAdapter(adapter);
         } else {
             adapter.addData(obj.getWorks(), isMoreAllowed);

@@ -42,16 +42,18 @@ public class WorkDetailActivityListAdapter extends RecyclerView.Adapter<Recycler
     boolean isMoreAllowed;
     MyClickListener clickListener;
     MyLongClickListener longClickListener;
+    int workId;
 
     int longClickPos;
     ProgressDialog progressDialog;
 
-    public WorkDetailActivityListAdapter(Context context, List<WorkDetailObject> mData, boolean isMoreAllowed) {
+    public WorkDetailActivityListAdapter(Context context, List<WorkDetailObject> mData, boolean isMoreAllowed, int id_work) {
         this.context = context;
         this.mData = mData;
         this.isMoreAllowed = isMoreAllowed;
         clickListener = new MyClickListener();
         longClickListener = new MyLongClickListener();
+        workId = id_work;
     }
 
     public void addData(List<WorkDetailObject> data, boolean isMore) {
@@ -191,6 +193,7 @@ public class WorkDetailActivityListAdapter extends RecyclerView.Adapter<Recycler
         Intent i = new Intent(context, AddDetailActivity.class);
         i.putExtra("isEditing", true);
         i.putExtra("obj", mData.get(longClickPos));
+        i.putExtra("workid", workId);
         ((WorkDetailActivity) context).startActivityForResult(i, WorkDetailActivity.REQUEST_EDIT_DETAIL);
     }
 
