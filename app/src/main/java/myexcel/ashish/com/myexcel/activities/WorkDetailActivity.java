@@ -31,6 +31,7 @@ import myexcel.ashish.com.myexcel.objects.WorkDetailObject;
 public class WorkDetailActivity extends BaseActivity implements ZUrls {
 
     private static final int REQUEST_ADD_DETAIL = 999;
+    public static final int REQUEST_EDIT_DETAIL = 989;
     HomeActivityObject homeObject;
 
     RecyclerView recyclerView;
@@ -148,6 +149,8 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
         if (requestCode == REQUEST_ADD_DETAIL && resultCode == RESULT_OK) {
             WorkDetailObject saved = data.getParcelableExtra("obj");
             adapter.addDataAtFirstPosition(saved);
+        } else if (requestCode == REQUEST_EDIT_DETAIL && resultCode == RESULT_OK) {
+
         }
     }
 }

@@ -37,6 +37,7 @@ public class AddDetailActivity extends BaseActivity implements ZUrls {
     WorkDetailObject object;
 
     int workId;
+    boolean isEditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +71,29 @@ public class AddDetailActivity extends BaseActivity implements ZUrls {
             }
         });
 
+        try {
+            isEditing = getIntent().getExtras().getBoolean("isEditing");
+            object = getIntent().getExtras().getParcelable("obj");
+        } catch (Exception e) {
+
+        }
+
+        if (isEditing) {
+            expectedDate.setText(object.getExpectedDate());
+            actualDate.setText(object.getActualDate());
+            trialDate.setText(object.getTrialDate());
+            qcDate.setText(object.getQcDate());
+            actionTaken.setText(object.getActionTaken());
+            status.setText(object.getStatus());
+            cost.setText(object.getCost());
+            remarks.setText(object.getRemarks());
+        }
     }
 
     private void sendDataToServer() {
         progressDialog = ProgressDialog.show(this, "Adding", "Wait", true, false);
-        object = new WorkDetailObject();
+        if (!isEditing)
+            object = new WorkDetailObject();
         object.setExpectedDate(expectedDate.getText().toString().trim());
         object.setActualDate(actualDate.getText().toString().trim());
         object.setTrialDate(trialDate.getText().toString().trim());
@@ -116,6 +135,9 @@ public class AddDetailActivity extends BaseActivity implements ZUrls {
                 p.put("status", object.getStatus());
                 p.put("cost", object.getCost());
                 p.put("remarks", object.getRemarks());
+                if (isEditing) {
+                    p.put("id_detail", object.getId() + "");
+                }
                 return p;
             }
         };

@@ -14,5 +14,6 @@ public interface ZUrls {
     public String addDetailUrl = ZApplication.getBaseUrl() + "add_detail/";
 
     public String deleteWork = ZApplication.getBaseUrl() + "delete_work/";
+    public String deleteDetail = ZApplication.getBaseUrl() + "delete_detail/";
 
 }

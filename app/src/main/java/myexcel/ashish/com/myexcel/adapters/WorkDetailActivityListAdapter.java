@@ -1,6 +1,11 @@
 package myexcel.ashish.com.myexcel.adapters;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,27 +13,45 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import myexcel.ashish.com.myexcel.R;
+import myexcel.ashish.com.myexcel.activities.AddDetailActivity;
+import myexcel.ashish.com.myexcel.activities.BaseActivity;
+import myexcel.ashish.com.myexcel.activities.WorkDetailActivity;
+import myexcel.ashish.com.myexcel.application.ZApplication;
 import myexcel.ashish.com.myexcel.extras.AppConstants;
+import myexcel.ashish.com.myexcel.extras.ZUrls;
 import myexcel.ashish.com.myexcel.objects.WorkDetailObject;
 
 /**
  * Created by Ashish Goel on 1/3/2016.
  */
-public class WorkDetailActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements AppConstants {
+public class WorkDetailActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements AppConstants, ZUrls {
 
     Context context;
     List<WorkDetailObject> mData;
     boolean isMoreAllowed;
     MyClickListener clickListener;
+    MyLongClickListener longClickListener;
+
+    int longClickPos;
+    ProgressDialog progressDialog;
 
     public WorkDetailActivityListAdapter(Context context, List<WorkDetailObject> mData, boolean isMoreAllowed) {
         this.context = context;
         this.mData = mData;
         this.isMoreAllowed = isMoreAllowed;
         clickListener = new MyClickListener();
+        longClickListener = new MyLongClickListener();
     }
 
     public void addData(List<WorkDetailObject> data, boolean isMore) {
@@ -101,7 +124,93 @@ public class WorkDetailActivityListAdapter extends RecyclerView.Adapter<Recycler
 
             holder.container.setTag(position);
             holder.container.setOnClickListener(clickListener);
+            holder.container.setOnLongClickListener(longClickListener);
         }
+    }
+
+    class MyLongClickListener implements View.OnLongClickListener {
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (v.getId() == R.id.container) {
+                int pos = (int) v.getTag();
+                longClickPos = pos;
+
+                String[] items = {"Edit", "Delete"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            editWorkRequest();
+                        } else if (which == 1) {
+                            deleteWorkRequest();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                Dialog dialog = builder.create();
+                dialog.show();
+            }
+            return false;
+        }
+    }
+
+    private void deleteWorkRequestConfirmed() {
+        progressDialog = ProgressDialog.show(context, "Deleting", "Wait", true, false);
+        StringRequest req = new StringRequest(Request.Method.POST, deleteDetail, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                mData.remove(longClickPos);
+                notifyDataSetChanged();
+                progressDialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                ((BaseActivity) context).makeToast("Error..Unable to delete..Check net");
+                progressDialog.dismiss();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> p = new HashMap<>();
+                p.put("id_work", mData.get(longClickPos).getId() + "");
+                return p;
+            }
+        };
+        ZApplication.getInstance().addToRequestQueue(req, deleteWork);
+    }
+
+    private void editWorkRequest() {
+        Intent i = new Intent(context, AddDetailActivity.class);
+        i.putExtra("isEditing", true);
+        i.putExtra("obj", mData.get(longClickPos));
+        ((WorkDetailActivity) context).startActivityForResult(i, WorkDetailActivity.REQUEST_EDIT_DETAIL);
+    }
+
+    private void deleteWorkRequest() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Are you sure to delete");
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteWorkRequestConfirmed();
+            }
+        });
+        Dialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
