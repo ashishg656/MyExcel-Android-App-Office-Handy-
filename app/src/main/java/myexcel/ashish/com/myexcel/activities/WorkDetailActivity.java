@@ -136,7 +136,7 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
         }
         if (adapter == null) {
             adapter = new WorkDetailActivityListAdapter(this,
-                    obj.getWorks(), isMoreAllowed,homeObject.getId());
+                    obj.getWorks(), isMoreAllowed, homeObject.getId());
             recyclerView.setAdapter(adapter);
         } else {
             adapter.addData(obj.getWorks(), isMoreAllowed);
@@ -150,7 +150,8 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
             WorkDetailObject saved = data.getParcelableExtra("obj");
             adapter.addDataAtFirstPosition(saved);
         } else if (requestCode == REQUEST_EDIT_DETAIL && resultCode == RESULT_OK) {
-
+            WorkDetailObject obj = data.getParcelableExtra("obj");
+            adapter.notifyThatDataEdited(obj);
         }
     }
 }

@@ -62,6 +62,16 @@ public class WorkDetailActivityListAdapter extends RecyclerView.Adapter<Recycler
         notifyDataSetChanged();
     }
 
+    public void notifyThatDataEdited(WorkDetailObject obj) {
+        for (int i = 0; i < mData.size(); i++) {
+            if (mData.get(i).getId() == obj.getId()) {
+                mData.set(i, obj);
+                notifyDataSetChanged();
+                break;
+            }
+        }
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int type) {
         if (type == TYPE_NORMAL) {
