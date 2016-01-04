@@ -37,6 +37,9 @@
             android:name=".activities.AddDetailActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBarWithStatusBAr" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="7410f1a5974e19fec4db1e0fcaac31a27f75d1a2" />
     </application>
 
 </manifest>
