@@ -11,5 +11,6 @@ public interface ZUrls {
     public String addWorkUrl = ZApplication.getBaseUrl() + "add_work/";
 
     public String getDetailsList = ZApplication.getBaseUrl() + "get_details_list/";
+    public String addDetailUrl = ZApplication.getBaseUrl() + "add_detail/";
 
 }

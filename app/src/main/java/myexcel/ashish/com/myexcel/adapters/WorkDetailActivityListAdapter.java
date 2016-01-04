@@ -12,7 +12,7 @@ import java.util.List;
 
 import myexcel.ashish.com.myexcel.R;
 import myexcel.ashish.com.myexcel.extras.AppConstants;
-import myexcel.ashish.com.myexcel.objects.WorkDetialObject;
+import myexcel.ashish.com.myexcel.objects.WorkDetailObject;
 
 /**
  * Created by Ashish Goel on 1/3/2016.
@@ -20,18 +20,18 @@ import myexcel.ashish.com.myexcel.objects.WorkDetialObject;
 public class WorkDetailActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements AppConstants {
 
     Context context;
-    List<WorkDetialObject> mData;
+    List<WorkDetailObject> mData;
     boolean isMoreAllowed;
     MyClickListener clickListener;
 
-    public WorkDetailActivityListAdapter(Context context, List<WorkDetialObject> mData, boolean isMoreAllowed) {
+    public WorkDetailActivityListAdapter(Context context, List<WorkDetailObject> mData, boolean isMoreAllowed) {
         this.context = context;
         this.mData = mData;
         this.isMoreAllowed = isMoreAllowed;
         clickListener = new MyClickListener();
     }
 
-    public void addData(List<WorkDetialObject> data, boolean isMore) {
+    public void addData(List<WorkDetailObject> data, boolean isMore) {
         mData.addAll(data);
         this.isMoreAllowed = isMore;
         notifyDataSetChanged();
@@ -53,7 +53,7 @@ public class WorkDetailActivityListAdapter extends RecyclerView.Adapter<Recycler
         return null;
     }
 
-    public void addDataAtFirstPosition(WorkDetialObject obj) {
+    public void addDataAtFirstPosition(WorkDetailObject obj) {
         mData.add(0, obj);
         notifyDataSetChanged();
     }

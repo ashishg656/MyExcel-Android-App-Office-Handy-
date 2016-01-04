@@ -23,7 +23,7 @@ import myexcel.ashish.com.myexcel.application.ZApplication;
 import myexcel.ashish.com.myexcel.extras.ZUrls;
 import myexcel.ashish.com.myexcel.objects.HomeActivityObject;
 import myexcel.ashish.com.myexcel.objects.WorkDetailActivityListObject;
-import myexcel.ashish.com.myexcel.objects.WorkDetialObject;
+import myexcel.ashish.com.myexcel.objects.WorkDetailObject;
 
 /**
  * Created by Ashish Goel on 1/4/2016.
@@ -32,7 +32,6 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
 
     private static final int REQUEST_ADD_DETAIL = 999;
     HomeActivityObject homeObject;
-    boolean hasChanged;
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
@@ -86,6 +85,7 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
 
     private void openAddDetailActivity() {
         Intent i = new Intent(this, AddDetailActivity.class);
+        i.putExtra("workid", homeObject.getId());
         startActivityForResult(i, REQUEST_ADD_DETAIL);
     }
 
@@ -146,7 +146,7 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_ADD_DETAIL && resultCode == RESULT_OK) {
-            WorkDetialObject saved = getIntent().getParcelableExtra("obj");
+            WorkDetailObject saved = data.getParcelableExtra("obj");
             adapter.addDataAtFirstPosition(saved);
         }
     }

@@ -1,12 +1,44 @@
 package myexcel.ashish.com.myexcel.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Ashish Goel on 1/4/2016.
  */
-public class WorkDetialObject {
+public class WorkDetailObject implements Parcelable {
 
     int id;
-    String date, expectedDate, actualDate, trialDate, qcDate, actionTaken, status, cost, remarks, is_active;
+    String date, expectedDate, actualDate, trialDate, qcDate, actionTaken, status, cost, remarks;
+
+    public WorkDetailObject(Parcel in) {
+        id = in.readInt();
+        date = in.readString();
+        expectedDate = in.readString();
+        actualDate = in.readString();
+        trialDate = in.readString();
+        qcDate = in.readString();
+        actionTaken = in.readString();
+        status = in.readString();
+        cost = in.readString();
+        remarks = in.readString();
+    }
+
+    public static final Creator<WorkDetailObject> CREATOR = new Creator<WorkDetailObject>() {
+        @Override
+        public WorkDetailObject createFromParcel(Parcel in) {
+            return new WorkDetailObject(in);
+        }
+
+        @Override
+        public WorkDetailObject[] newArray(int size) {
+            return new WorkDetailObject[size];
+        }
+    };
+
+    public WorkDetailObject() {
+
+    }
 
     public int getId() {
         return id;
@@ -88,11 +120,22 @@ public class WorkDetialObject {
         this.remarks = remarks;
     }
 
-    public String getIs_active() {
-        return is_active;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setIs_active(String is_active) {
-        this.is_active = is_active;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(date);
+        dest.writeString(expectedDate);
+        dest.writeString(actualDate);
+        dest.writeString(trialDate);
+        dest.writeString(qcDate);
+        dest.writeString(actionTaken);
+        dest.writeString(status);
+        dest.writeString(cost);
+        dest.writeString(remarks);
     }
 }

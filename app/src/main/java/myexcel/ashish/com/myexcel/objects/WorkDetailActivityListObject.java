@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class WorkDetailActivityListObject {
 
-    List<WorkDetialObject> works;
+    List<WorkDetailObject> works;
     Integer next_page;
 
     public Integer getNext_page() {
@@ -18,11 +18,11 @@ public class WorkDetailActivityListObject {
         this.next_page = next_page;
     }
 
-    public List<WorkDetialObject> getWorks() {
+    public List<WorkDetailObject> getWorks() {
         return works;
     }
 
-    public void setWorks(List<WorkDetialObject> works) {
+    public void setWorks(List<WorkDetailObject> works) {
         this.works = works;
     }
 }

@@ -32,6 +32,11 @@
             android:name=".activities.WorkDetailActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBarWithStatusBAr" />
+
+        <activity
+            android:name=".activities.AddDetailActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBarWithStatusBAr" />
     </application>
 
 </manifest>
