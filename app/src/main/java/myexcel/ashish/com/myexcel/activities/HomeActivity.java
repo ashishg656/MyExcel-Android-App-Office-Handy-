@@ -30,6 +30,7 @@ public class HomeActivity extends BaseActivity implements ZUrls {
     boolean isRequestRunning;
     Integer nextPage = 1;
     public static final int REQUESt_CODE_ADD_WORK = 348;
+    public static final int REQUESt_CODE_EDIT_WORK = 350;
     boolean isMoreAllowed = true;
 
     @Override
@@ -126,6 +127,10 @@ public class HomeActivity extends BaseActivity implements ZUrls {
             HomeActivityObject obj = data.getParcelableExtra("obj");
 
             adapter.addDataAtFirstPosition(obj);
+        } else if (requestCode == REQUESt_CODE_EDIT_WORK && resultCode == RESULT_OK) {
+            HomeActivityObject obj = data.getParcelableExtra("obj");
+
+            adapter.notifyThatDataEdited(obj);
         }
     }
 }

@@ -13,4 +13,6 @@ public interface ZUrls {
     public String getDetailsList = ZApplication.getBaseUrl() + "get_details_list/";
     public String addDetailUrl = ZApplication.getBaseUrl() + "add_detail/";
 
+    public String deleteWork = ZApplication.getBaseUrl() + "delete_work/";
+
 }
