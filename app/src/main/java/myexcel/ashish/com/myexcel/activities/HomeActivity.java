@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -74,6 +75,7 @@ public class HomeActivity extends BaseActivity implements ZUrls {
     }
 
     private void loadData() {
+        isRequestRunning = true;
         if (adapter == null) {
             showLoadingLayout();
             hideErrorLayout();
@@ -84,10 +86,7 @@ public class HomeActivity extends BaseActivity implements ZUrls {
 
                     @Override
                     public void onResponse(String res) {
-                        if (adapter == null) {
-                            hideErrorLayout();
-                            hideLoadingLayout();
-                        }
+                        isRequestRunning = false;
                         HomeActivityListObject obj = new Gson().fromJson(res,
                                 HomeActivityListObject.class);
                         setAdapterData(obj);
@@ -96,9 +95,19 @@ public class HomeActivity extends BaseActivity implements ZUrls {
 
             @Override
             public void onErrorResponse(VolleyError err) {
-                if (adapter == null) {
-                    showErrorLayout();
-                    hideLoadingLayout();
+                isRequestRunning = false;
+                try {
+                    Cache cache = ZApplication.getInstance().getRequestQueue().getCache();
+                    Cache.Entry entry = cache.get(getWorksListUrl + "?pagenumber=" + nextPage);
+                    String data = new String(entry.data, "UTF-8");
+                    HomeActivityListObject obj = new Gson().fromJson(data,
+                            HomeActivityListObject.class);
+                    setAdapterData(obj);
+                } catch (Exception e) {
+                    if (adapter == null) {
+                        showErrorLayout();
+                        hideLoadingLayout();
+                    }
                 }
             }
         });
@@ -111,6 +120,8 @@ public class HomeActivity extends BaseActivity implements ZUrls {
             isMoreAllowed = false;
         }
         if (adapter == null) {
+            hideErrorLayout();
+            hideLoadingLayout();
             adapter = new HomeActivityListAdapter(this,
                     obj.getWorks(), isMoreAllowed);
             recyclerView.setAdapter(adapter);

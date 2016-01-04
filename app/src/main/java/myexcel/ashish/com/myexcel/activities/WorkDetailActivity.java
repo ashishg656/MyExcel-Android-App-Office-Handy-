@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -91,20 +92,18 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
     }
 
     private void loadData() {
+        isRequestRunning = true;
         if (adapter == null) {
             showLoadingLayout();
             hideErrorLayout();
         }
-        String url = getDetailsList + "?pagenumber=" + nextPage;
+        String url = getDetailsList + "?pagenumber=" + nextPage + "&work_id=" + homeObject.getId();
         StringRequest req = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String res) {
-                        if (adapter == null) {
-                            hideErrorLayout();
-                            hideLoadingLayout();
-                        }
+                        isRequestRunning = false;
                         WorkDetailActivityListObject obj = new Gson().fromJson(res,
                                 WorkDetailActivityListObject.class);
                         setAdapterData(obj);
@@ -113,9 +112,19 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
 
             @Override
             public void onErrorResponse(VolleyError err) {
-                if (adapter == null) {
-                    showErrorLayout();
-                    hideLoadingLayout();
+                isRequestRunning = false;
+                try {
+                    Cache cache = ZApplication.getInstance().getRequestQueue().getCache();
+                    Cache.Entry entry = cache.get(getDetailsList + "?pagenumber=" + nextPage + "&work_id=" + homeObject.getId());
+                    String data = new String(entry.data, "UTF-8");
+                    WorkDetailActivityListObject obj = new Gson().fromJson(data,
+                            WorkDetailActivityListObject.class);
+                    setAdapterData(obj);
+                } catch (Exception e) {
+                    if (adapter == null) {
+                        showErrorLayout();
+                        hideLoadingLayout();
+                    }
                 }
             }
         }) {
@@ -135,6 +144,8 @@ public class WorkDetailActivity extends BaseActivity implements ZUrls {
             isMoreAllowed = false;
         }
         if (adapter == null) {
+            hideErrorLayout();
+            hideLoadingLayout();
             adapter = new WorkDetailActivityListAdapter(this,
                     obj.getWorks(), isMoreAllowed, homeObject.getId());
             recyclerView.setAdapter(adapter);
