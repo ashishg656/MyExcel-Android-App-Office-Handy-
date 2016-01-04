@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,7 @@ import myexcel.ashish.com.myexcel.R;
 import myexcel.ashish.com.myexcel.application.ZApplication;
 import myexcel.ashish.com.myexcel.extras.ZUrls;
 import myexcel.ashish.com.myexcel.objects.HomeActivityObject;
+import myexcel.ashish.com.myexcel.objects.SaveWorkObject;
 
 /**
  * Created by Ashish Goel on 1/3/2016.
@@ -34,6 +36,8 @@ public class AddWorkActivity extends BaseActivity implements ZUrls {
     LinearLayout send;
     ProgressDialog progressDialog;
     HomeActivityObject obj;
+
+    boolean isEditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,27 @@ public class AddWorkActivity extends BaseActivity implements ZUrls {
         remarks = (EditText) findViewById(R.id.remarks);
         send = (LinearLayout) findViewById(R.id.accept);
 
+        try {
+            isEditing = getIntent().getExtras().getBoolean("isEditing");
+            obj = getIntent().getExtras().getParcelable("obj");
+        } catch (Exception e) {
+
+        }
+
+        if (isEditing) {
+            toolNumber.setText(obj.getToolNumber());
+            jwNumber.setText(obj.getJwNumber());
+            product.setText(obj.getProduct());
+            description.setText(obj.getDescription());
+            startDate.setText(obj.getStartDate());
+            targetDate.setText(obj.getTargetDate());
+            doneBy.setText(obj.getDoneBy());
+            actualDate.setText(obj.getActualDateOfCompletion());
+            cost.setText(obj.getCost());
+            status.setText(obj.getStatus());
+            remarks.setText(obj.getRemarks());
+        }
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +92,8 @@ public class AddWorkActivity extends BaseActivity implements ZUrls {
 
     private void sendDataToServer() {
         progressDialog = ProgressDialog.show(this, "Adding", "Wait", true, false);
+        if (!isEditing)
+            obj = new HomeActivityObject();
         obj.setToolNumber(toolNumber.getText().toString().trim());
         obj.setJwNumber(jwNumber.getText().toString().trim());
         obj.setProduct(product.getText().toString().trim());
@@ -84,8 +111,11 @@ public class AddWorkActivity extends BaseActivity implements ZUrls {
             public void onResponse(String s) {
                 progressDialog.dismiss();
 
+                SaveWorkObject saved = new Gson().fromJson(s, SaveWorkObject.class);
+                obj.setId(saved.getId());
+
                 Intent data = new Intent();
-                data.putExtra("obj_to_add", obj);
+                data.putExtra("obj", obj);
                 setResult(RESULT_OK, data);
                 AddWorkActivity.this.finish();
             }
@@ -110,6 +140,9 @@ public class AddWorkActivity extends BaseActivity implements ZUrls {
                 p.put("cost", cost.getText().toString().trim());
                 p.put("status", status.getText().toString().trim());
                 p.put("remarks", remarks.getText().toString().trim());
+                if (isEditing) {
+                    p.put("id_work", obj.getId() + "");
+                }
                 return p;
             }
         };

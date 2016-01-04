@@ -30,7 +30,7 @@ public class ZApplication extends Application {
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+            mRequestQueue = Volley.newRequestQueue(sInstance);
         }
         return mRequestQueue;
     }

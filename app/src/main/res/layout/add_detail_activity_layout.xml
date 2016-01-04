@@ -45,192 +45,17 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/toolnumber"
+                        android:id="@+id/expecteddate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="Tool Number"
+                        android:hint="Expected Date"
                         android:imeOptions="actionNext"
                         android:paddingTop="@dimen/z_margin_mini"
                         android:textSize="14sp" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/z_grey_shade_3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/z_margin_large">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/jwnumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="start"
-                        android:hint="JW Number"
-                        android:imeOptions="actionNext"
-                        android:paddingTop="@dimen/z_margin_mini"
-                        android:singleLine="true"
-                        android:textSize="14sp" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/z_grey_shade_3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/z_margin_large">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/product"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="start"
-                        android:hint="Product"
-                        android:imeOptions="actionNext"
-                        android:paddingTop="@dimen/z_margin_mini"
-                        android:singleLine="true"
-                        android:textSize="14sp" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/z_grey_shade_3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/z_margin_large">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/desc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="start"
-                        android:hint="Description..."
-                        android:imeOptions="actionNext"
-                        android:minLines="5"
-                        android:paddingTop="@dimen/z_margin_mini"
-                        android:textSize="14sp" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/z_grey_shade_3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/z_margin_large">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/startdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="start"
-                        android:hint="Start Date"
-                        android:imeOptions="actionNext"
-                        android:paddingTop="@dimen/z_margin_mini"
-                        android:singleLine="true"
-                        android:textSize="14sp" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/z_grey_shade_3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/z_margin_large">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/targetdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="start"
-                        android:hint="Target Date"
-                        android:imeOptions="actionNext"
-                        android:paddingTop="@dimen/z_margin_mini"
-                        android:singleLine="true"
-                        android:textSize="14sp" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/z_grey_shade_3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/z_margin_large">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/doneby"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="start"
-                        android:hint="Done by"
-                        android:imeOptions="actionNext"
-                        android:paddingTop="@dimen/z_margin_mini"
-                        android:singleLine="true"
-                        android:textSize="14sp" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -253,7 +78,124 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:gravity="start"
-                        android:hint="Actual completion date"
+                        android:hint="Actual Date"
+                        android:imeOptions="actionNext"
+                        android:paddingTop="@dimen/z_margin_mini"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/z_grey_shade_3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/trialdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="start"
+                        android:hint="Trial Date"
+                        android:imeOptions="actionNext"
+                        android:paddingTop="@dimen/z_margin_mini"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/z_grey_shade_3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/qcdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="start"
+                        android:hint="QC Date"
+                        android:imeOptions="actionNext"
+                        android:paddingTop="@dimen/z_margin_mini"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/z_grey_shade_3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/actiontaken"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="start"
+                        android:hint="Action Taken"
+                        android:imeOptions="actionNext"
+                        android:paddingTop="@dimen/z_margin_mini"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/z_grey_shade_3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="start"
+                        android:hint="Status"
                         android:imeOptions="actionNext"
                         android:paddingTop="@dimen/z_margin_mini"
                         android:singleLine="true"
@@ -306,35 +248,6 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="start"
-                        android:hint="Status"
-                        android:imeOptions="actionNext"
-                        android:paddingTop="@dimen/z_margin_mini"
-                        android:singleLine="true"
-                        android:textSize="14sp" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/z_grey_shade_3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/z_margin_large">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
                         android:id="@+id/remarks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -342,8 +255,8 @@
                         android:gravity="start"
                         android:hint="Remarks"
                         android:imeOptions="actionNext"
-                        android:maxLines="6"
                         android:paddingTop="@dimen/z_margin_mini"
+                        android:singleLine="true"
                         android:textSize="14sp" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>

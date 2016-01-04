@@ -10,4 +10,6 @@ public interface ZUrls {
     public String getWorksListUrl = ZApplication.getBaseUrl() + "get_works_list/";
     public String addWorkUrl = ZApplication.getBaseUrl() + "add_work/";
 
+    public String getDetailsList = ZApplication.getBaseUrl() + "get_details_list/";
+
 }
